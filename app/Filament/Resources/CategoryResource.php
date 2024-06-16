@@ -41,7 +41,12 @@ class CategoryResource extends Resource
                 Tables\Columns\TextColumn::make('name')
                     ->searchable(),
                 Tables\Columns\IconColumn::make('is_expense')
-                    ->boolean(),
+                ->trueIcon('heroicon-o-arrow-down')
+                ->falseIcon('heroicon-o-arrow-up')
+                ->trueColor('danger')
+                ->falseColor('success')
+                ->label("Tipe Pengeluaran")
+                ->boolean(),
                 Tables\Columns\ImageColumn::make('image'),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()

@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources;
 
+
 use App\Filament\Resources\TransactionResource\Pages;
 use App\Filament\Resources\TransactionResource\RelationManagers;
 use App\Models\Transaction;
@@ -47,22 +48,32 @@ class TransactionResource extends Resource
     {
         return $table
             ->columns([
+
+                Tables\Columns\ImageColumn::make('image'),
                 Tables\Columns\TextColumn::make('name')
+                ->description(fn (Transaction $record): string => $record->note)
                     ->searchable(),
                     Tables\Columns\IconColumn::make('category.is_expense')
                     ->label("Tipe Pengeluaran")
+                    ->trueIcon('heroicon-o-arrow-down')
+         
+                    ->falseIcon('heroicon-o-arrow-up')
+                    ->trueColor('danger')
+                    ->falseColor('success')
                     ->boolean(),
+                  
                 Tables\Columns\TextColumn::make('category.name')
-            
                     ->sortable(),
                 Tables\Columns\TextColumn::make('date')
+                ->label("Tanggal")
                     ->date()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('amount')
-                    ->numeric()
-                    ->sortable(),
+                ->numeric()
+                ->prefix("Rp")
+                ->sortable(),
               
-                Tables\Columns\ImageColumn::make('image'),
+
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
