@@ -29,8 +29,7 @@ class TransactionResource extends Resource
                     ->maxLength(255),
                 Forms\Components\Select::make('category_id')
                 ->relationship('category', 'name'),
-      
-                Forms\Components\DatePicker::make('date')
+                Forms\Components\DatePicker::make('date_transaction')
                     ->required(),
                 Forms\Components\TextInput::make('amount')
                     ->required()
@@ -64,7 +63,7 @@ class TransactionResource extends Resource
                   
                 Tables\Columns\TextColumn::make('category.name')
                     ->sortable(),
-                Tables\Columns\TextColumn::make('date')
+                Tables\Columns\TextColumn::make('date_transaction')
                 ->label("Tanggal")
                     ->date()
                     ->sortable(),
@@ -72,8 +71,6 @@ class TransactionResource extends Resource
                 ->numeric()
                 ->prefix("Rp")
                 ->sortable(),
-              
-
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()

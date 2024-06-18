@@ -18,7 +18,7 @@ return new class extends Migration
 
             $table->foreignId('category_id')->constrained('categories')->cascadeOnDelete();
 
-            $table->date('date');
+            $table->date('date_transaction');
 
             $table->integer('amount');
 

@@ -16,10 +16,11 @@ class StatsOverview extends BaseWidget
 
         return [
             Card::make('Pemasukan', $pemasukan)
-    
-            ->description('32k increase')
+            ->description('Chart')
             ->descriptionIcon('heroicon-o-arrow-down'),
-            Card::make('Pengeluaran', $pengeluaran),
+            Card::make('Pengeluaran', $pengeluaran)
+            ->description('Chart')
+            ->descriptionIcon('heroicon-o-arrow-up'),
             Card::make('Sisa', $pemasukan-$pengeluaran),
          
         ];
