@@ -13,6 +13,7 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Filament\Tables\Filters\Filter;
 
 class TransactionResource extends Resource
 {
@@ -55,7 +56,6 @@ class TransactionResource extends Resource
                     Tables\Columns\IconColumn::make('category.is_expense')
                     ->label("Tipe Pengeluaran")
                     ->trueIcon('heroicon-o-arrow-down')
-         
                     ->falseIcon('heroicon-o-arrow-up')
                     ->trueColor('danger')
                     ->falseColor('success')
@@ -81,7 +81,22 @@ class TransactionResource extends Resource
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
-                //
+                Filter::make('date_transaction')
+                ->form([
+                    Forms\Components\DatePicker::make('created_from'),
+                    Forms\Components\DatePicker::make('created_until'),
+                ])
+                ->query(function (Builder $query, array $data): Builder {
+                    return $query
+                        ->when(
+                            $data['created_from'],
+                            fn (Builder $query, $date): Builder => $query->whereDate('date_transaction', '>=', $date),
+                        )
+                        ->when(
+                            $data['created_until'],
+                            fn (Builder $query, $date): Builder => $query->whereDate('date_transaction', '<=', $date),
+                        );
+                })
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
